@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGHT SHFT LNDN</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:    #080808;
+    --deep:     #0c0c0c;
+    --surface:  #111111;
+    --surface2: #161616;
+    --border:   #222222;
+    --gold:     #c9a84c;
+    --gold-lt:  #e8c96a;
+    --gold-dk:  #8a6a20;
+    --silver:   #b8c0cc;
+    --silver-lt:#d8e0ec;
+    --silver-dk:#7a8490;
+    --muted:    #3a3a3a;
+    --mid:      #666666;
+    --light:    #aaaaaa;
+    --white:    #f0ede8;
+
+    --gold-grad: linear-gradient(135deg, #8a6a20 0%, #c9a84c 40%, #e8c96a 60%, #c9a84c 80%, #8a6a20 100%);
+    --silver-grad: linear-gradient(135deg, #5a6070 0%, #b8c0cc 40%, #d8e0ec 60%, #b8c0cc 80%, #5a6070 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Subtle noise */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .nav-logo {
+    display: flex; flex-direction: column; align-items: flex-start;
+    cursor: pointer; text-decoration: none; line-height: 1;
+  }
+  .nav-logo-main {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    background: var(--gold-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-logo-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.6em;
+    color: var(--silver);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--mid);
+    text-decoration: none; transition: color 0.25s; cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: transparent !important;
+    border: 1px solid var(--gold-dk) !important;
+    color: var(--gold) !important;
+    padding: 0.5rem 1.5rem;
+    transition: background 0.25s, color 0.25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; animation: fadeUp 0.4s ease both; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  #home {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden; padding-top: 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 55%, rgba(201,168,76,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 30% at 20% 20%, rgba(184,192,204,0.04) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(138,106,32,0.05) 0%, transparent 60%),
+      var(--black);
+  }
+
+  /* Gold line ornament */
+  .hero-ornament {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.06);
+    pointer-events: none;
+  }
+  .hero-ornament::before {
+    content: '';
+    position: absolute; inset: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,192,204,0.04);
+  }
+
+  .hero-content { position: relative; text-align: center; z-index: 2; padding: 0 2rem; }
+
+  .hero-eyebrow {
+    font-size: 0.62rem; letter-spacing: 0.5em; text-transform: uppercase;
+    color: var(--silver-dk); margin-bottom: 2rem;
+    animation: fadeUp 0.9s ease both;
+    font-weight: 500;
+  }
+
+  .hero-logo-img {
+    width: 180px; height: auto;
+    margin: 0 auto 2rem;
+    animation: fadeUp 0.9s 0.1s ease both;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.25));
+  }
+
+  .hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 1; letter-spacing: 0.12em; font-weight: 700;
+    background: var(--gold-grad);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: fadeUp 0.9s 0.15s ease both;
+  }
+
+  .hero-divider {
+    display: flex; align-items: center; gap: 1.2rem;
+    justify-content: center; margin: 1.5rem 0;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-divider-line { flex: 1; max-width: 80px; height: 1px; background: var(--gold-grad); opacity: 0.5; }
+  .hero-divider-diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    letter-spacing: 0.4em; font-weight: 400;
+    background: var(--silver-grad);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    animation: fadeUp 0.9s 0.25s ease both;
+  }
+
+  .hero-tagline {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--mid); margin-top: 1rem;
+    animation: fadeUp 0.9s 0.3s ease both; font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1.2rem; justify-content: center;
+    margin-top: 3rem; animation: fadeUp 0.9s 0.35s ease both;
+  }
+
+  .btn-gold {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 0.95rem 2.5rem;
+    background: var(--gold-grad);
+    color: var(--black);
+    border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+    box-shadow: 0 4px 20px rgba(201,168,76,0.25);
+  }
+  .btn-gold:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  .btn-silver {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 0.95rem 2.5rem;
+    background: transparent;
+    color: var(--silver);
+    border: 1px solid var(--silver-dk);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-silver:hover { border-color: var(--silver-lt); color: var(--silver-lt); transform: translateY(-2px); }
+
+  /* Ticker */
+  .ticker-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt), var(--gold), var(--gold-dk));
+    padding: 0.55rem 0; overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 35s linear infinite;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--black);
+  }
+  @keyframes ticker { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+  /* ── STATS ── */
+  .stat-row {
+    display: flex; gap: 0; flex-wrap: wrap;
+    border: 1px solid var(--border); margin-top: 5rem;
+  }
+  .stat {
+    flex: 1; min-width: 140px;
+    text-align: center; padding: 2.5rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cinzel', serif; font-size: 2.8rem; line-height: 1;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mid); }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.5em; text-transform: uppercase;
+    color: var(--gold-dk); margin-bottom: 0.6rem; font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1; letter-spacing: 0.08em; margin-bottom: 1rem;
+    background: var(--silver-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .gold-divider {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 3.5rem;
+  }
+  .gold-divider-line { width: 50px; height: 1px; background: var(--gold-grad); }
+  .gold-divider-dot { width: 4px; height: 4px; background: var(--gold); transform: rotate(45deg); }
+
+  /* ── EVENTS ── */
+  .event-card {
+    display: grid; grid-template-columns: 90px 1fr auto;
+    gap: 2rem; align-items: center;
+    padding: 2rem 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 1px;
+    transition: background 0.25s, border-color 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .event-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: var(--gold-grad); transform: scaleY(0); transition: transform 0.25s;
+  }
+  .event-card:hover { background: var(--surface2); border-color: var(--gold-dk); }
+  .event-card:hover::before { transform: scaleY(1); }
+
+  .event-date { text-align: center; border-right: 1px solid var(--border); padding-right: 2rem; }
+  .event-date .day {
+    font-family: 'Cinzel', serif; font-size: 2.5rem; line-height: 1;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .event-date .month { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mid); margin-top: 2px; }
+
+  .event-info h3 {
+    font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 0.05em;
+    color: var(--white); margin-bottom: 0.4rem; font-weight: 600;
+  }
+  .event-info p { font-size: 0.72rem; color: var(--mid); letter-spacing: 0.05em; }
+  .event-tags { display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.2rem 0.7rem; border: 1px solid var(--border); color: var(--mid);
+  }
+  .tag.sold-out { border-color: var(--gold-dk); color: var(--gold); }
+  .tag.featured { border-color: var(--gold-dk); color: var(--gold); }
+
+  /* ── TICKETS ── */
+  .tickets-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+  .ticket-card {
+    background: var(--surface); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background 0.25s;
+  }
+  .ticket-card:hover { background: var(--surface2); }
+  .ticket-card.featured { background: var(--deep); }
+  .ticket-card.featured::after {
+    content: 'MOST POPULAR';
+    position: absolute; top: 1.2rem; right: -2.5rem;
+    background: var(--gold-grad);
+    color: var(--black);
+    font-size: 0.55rem; font-weight: 800; letter-spacing: 0.25em;
+    padding: 0.3rem 3.5rem;
+    transform: rotate(45deg);
+  }
+
+  .ticket-tier {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .ticket-price {
+    font-family: 'Cinzel', serif; font-size: 3.5rem; line-height: 1;
+    background: var(--silver-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 0.3rem;
+  }
+  .ticket-price sup { font-size: 1.3rem; }
+  .ticket-event-name { font-size: 0.65rem; color: var(--mid); margin-bottom: 1.5rem; letter-spacing: 0.05em; }
+  .ticket-perks { list-style: none; margin-bottom: 2rem; }
+  .ticket-perks li {
+    font-size: 0.72rem; color: var(--light); padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border); display: flex; gap: 0.75rem; line-height: 1.5;
+  }
+  .ticket-perks li::before { content: '◆'; color: var(--gold-dk); font-size: 0.4rem; flex-shrink: 0; margin-top: 4px; }
+
+  /* Forms */
+  .form-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 3rem; max-width: 620px; margin: 0 auto;
+  }
+  .form-wrap h3 {
+    font-family: 'Cinzel', serif; font-size: 1.6rem; letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .form-wrap p { font-size: 0.72rem; color: var(--mid); margin-bottom: 2rem; letter-spacing: 0.05em; }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; font-size: 0.6rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--silver-dk); margin-bottom: 0.4rem; font-weight: 600;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: var(--black); border: 1px solid var(--border);
+    color: var(--white); padding: 0.85rem 1rem;
+    font-family: 'Montserrat', sans-serif; font-size: 0.78rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold-dk); }
+  .form-group select option { background: var(--black); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* ── MERCH ── */
+  .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .merch-card {
+    background: var(--surface); overflow: hidden;
+    transition: background 0.25s, transform 0.2s; cursor: pointer;
+  }
+  .merch-card:hover { background: var(--surface2); transform: translateY(-3px); }
+
+  .merch-img {
+    aspect-ratio: 1; background: var(--deep);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .merch-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+  }
+  .merch-img-inner {
+    font-family: 'Cinzel', serif; font-size: 1.1rem;
+    letter-spacing: 0.15em; color: var(--muted); text-align: center;
+  }
+  .merch-img-icon { font-size: 3rem; display: block; margin-bottom: 0.3rem; opacity: 0.5; }
+  .merch-badge {
+    position: absolute; top: 0.8rem; right: 0.8rem;
+    background: var(--gold-grad); color: var(--black);
+    font-size: 0.55rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .merch-info { padding: 1.3rem; border-top: 1px solid var(--border); }
+  .merch-info h3 {
+    font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.08em;
+    color: var(--white); margin-bottom: 0.25rem; font-weight: 600;
+  }
+  .merch-desc { font-size: 0.68rem; color: var(--mid); margin-bottom: 0.75rem; line-height: 1.6; }
+  .merch-price {
+    font-family: 'Cinzel', serif; font-size: 1.3rem;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px; gap: 2px;
+  }
+  .gallery-item {
+    background: var(--surface); overflow: hidden;
+    cursor: pointer; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gallery-item:nth-child(3n+1) { grid-row: span 2; }
+  .gallery-item:nth-child(5n+4) { grid-column: span 2; }
+
+  .gallery-inner {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-inner { opacity: 0.4; }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(201,168,76,0.08);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.3em;
+    color: var(--gold);
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-icon { font-size: 2.2rem; opacity: 0.25; margin-bottom: 0.5rem; }
+  .gallery-caption {
+    font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .contact-block { margin-bottom: 2.5rem; }
+  .contact-block h3 {
+    font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.15em;
+    margin-bottom: 0.4rem; color: var(--gold);
+  }
+  .contact-block p { font-size: 0.75rem; color: var(--mid); line-height: 1.9; }
+  .contact-block a { color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .contact-block a:hover { color: var(--gold); }
+
+  .social-links { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .social-btn {
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.5rem 1rem; border: 1px solid var(--border); color: var(--mid);
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--gold-dk); color: var(--gold); }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88); z-index: 2000;
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border);
+    max-width: 500px; width: 100%; padding: 2.5rem; position: relative;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 0 60px rgba(201,168,76,0.08);
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1.2rem;
+    background: none; border: none; color: var(--mid); font-size: 1.2rem;
+    cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+  .modal h3 {
+    font-family: 'Cinzel', serif; font-size: 1.4rem; letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .modal-price {
+    font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 0.5rem;
+    background: var(--silver-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .modal-desc { font-size: 0.75rem; color: var(--mid); line-height: 1.8; margin-bottom: 1.5rem; }
+
+  /* Success */
+  .success-msg {
+    display: none; padding: 1rem 1.2rem;
+    border: 1px solid var(--gold-dk); color: var(--gold);
+    font-size: 0.72rem; letter-spacing: 0.08em; margin-top: 1rem; text-align: center;
+  }
+
+  /* About section */
+  .about-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; line-height: 1.9; color: var(--light); max-width: 680px;
+    font-weight: 300; letter-spacing: 0.02em;
+  }
+  .about-text strong { color: var(--gold); font-weight: 600; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border); padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 0.25em;
+    background: var(--gold-grad); -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .footer-copy { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.15em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Gallery filter buttons */
+  .filter-btn {
+    font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.5rem 1.1rem; background: transparent;
+    border: 1px solid var(--border); color: var(--mid);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--gold-dk); color: var(--gold); }
+  .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.07); }
+
+  /* Gallery cards */
+  .g-card { transition: opacity 0.3s; }
+  .g-card.hidden { display: none; }
+  .g-overlay {
+    position: absolute; inset: 0;
+    background: rgba(201,168,76,0.1);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.3em; color: var(--gold);
+  }
+  .g-card:hover .g-overlay { opacity: 1; }
+  .g-tag-badge {
+    position: absolute; bottom: 0.6rem; left: 0.6rem;
+    background: rgba(0,0,0,0.75);
+    font-size: 0.55rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-dk); padding: 0.2rem 0.5rem;
+    border: 1px solid var(--gold-dk);
+  }
+  .g-card.uploaded-card .g-tag-badge { color: var(--silver); border-color: var(--silver-dk); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .event-card { grid-template-columns: 80px 1fr; }
+    .event-action { display: none; }
+    .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
+    .gallery-item:nth-child(3n+1) { grid-row: span 1; }
+    .gallery-item:nth-child(5n+4) { grid-column: span 1; }
+    .form-row { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+    .stat-row { flex-direction: column; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')" style="text-decoration:none; cursor:pointer;">
+    <span class="nav-logo-main">NGHT SHFT</span>
+    <span class="nav-logo-sub">London</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('events')">Events</a></li>
+    <li><a onclick="showPage('tickets')">Tickets</a></li>
+    <li><a onclick="showPage('merch')">Merch</a></li>
+    <li><a onclick="showPage('gallery')">Gallery</a></li>
+    <li><a onclick="showPage('contact')">Contact</a></li>
+    <li><a class="nav-cta" onclick="showPage('tickets')">Get Tickets</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════ HOME ════════════ -->
+<div id="home" class="page active">
+  <div style="position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; padding-top:80px;">
+    <div class="hero-bg"></div>
+    <div class="hero-ornament"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">London &nbsp;◆&nbsp; R&B &nbsp;◆&nbsp; Hip Hop &nbsp;◆&nbsp; Garage &nbsp;◆&nbsp; Bashment &nbsp;◆&nbsp; Old Skool</p>
+      <img src="/mnt/user-data/uploads/176823.png" class="hero-logo-img" alt="NGHT SHFT LNDN Logo">
+      <h1 class="hero-title">NGHT SHFT</h1>
+      <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <div class="hero-divider-diamond"></div>
+        <div class="hero-divider-line"></div>
+      </div>
+      <div class="hero-subtitle">LNDN</div>
+      <p class="hero-tagline" style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-style:italic; font-weight:400; letter-spacing:0.08em; color:var(--silver); max-width:540px; margin:1.2rem auto 0;">
+        Clock in to the Nght Shft — the one Shft you won't want to end.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-gold" onclick="showPage('events')">View Events</button>
+        <button class="btn-silver" onclick="showPage('tickets')">Get Tickets</button>
+      </div>
+    </div>
+
+    <div class="ticker-bar">
+      <div class="ticker-inner">
+        NEXT EVENT: NGHT SHFT VOL. 12 &nbsp;◆&nbsp; SAT 17 MAY &nbsp;◆&nbsp; VENUE TBA &nbsp;◆&nbsp; DOORS 10PM &nbsp;◆&nbsp; LIMITED AVAILABILITY &nbsp;◆&nbsp; NGHT SHFT VOL. 12 &nbsp;◆&nbsp; SAT 17 MAY &nbsp;◆&nbsp; VENUE TBA &nbsp;◆&nbsp; DOORS 10PM &nbsp;◆&nbsp; LIMITED AVAILABILITY &nbsp;◆&nbsp;
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <p class="section-label">// About NGHT SHFT</p>
+    <h2 class="section-title">THE ONE<br>SHFT YOU WON'T<br>WANT TO END</h2>
+    <div class="gold-divider">
+      <div class="gold-divider-line"></div>
+      <div class="gold-divider-dot"></div>
+    </div>
+    <p class="about-text">
+      <strong>Clock in to the Nght Shft.</strong> London's premier night for the very best in 
+      <strong>R&amp;B &amp; Hip Hop</strong>, <strong>Garage</strong>, <strong>Bashment</strong> and 
+      <strong>Old Skool Classics</strong> — plus <strong>games and prizes</strong> all night long. 
+      This isn't just an event. It's the shift that keeps going until you don't want it to stop.
+    </p>
+
+    <!-- Genre pills -->
+    <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin:2.5rem 0;">
+      <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--gold-dk); color:var(--gold);">R&amp;B &amp; Hip Hop</span>
+      <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--border); color:var(--silver);">Garage</span>
+      <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--border); color:var(--silver);">Bashment</span>
+      <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--border); color:var(--silver);">Old Skool Classics</span>
+      <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--border); color:var(--silver);">Games &amp; Prizes</span>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Events</div></div>
+      <div class="stat"><div class="stat-num">5K+</div><div class="stat-label">Attendees</div></div>
+      <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Artists</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Years Running</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ════════════ EVENTS ════════════ -->
+<div id="events" class="page">
+  <section>
+    <p class="section-label">// Upcoming</p>
+    <h2 class="section-title">EVENTS</h2>
+    <div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-dot"></div></div>
+
+    <div class="event-card">
+      <div class="event-date">
+        <div class="day">17</div>
+        <div class="month">May 2026</div>
+      </div>
+      <div class="event-info">
+        <h3>NGHT SHFT VOL. 12</h3>
+        <p>Venue TBA, London &nbsp;·&nbsp; Doors 10:00 PM &nbsp;·&nbsp; 18+</p>
+        <div class="event-tags">
+          <span class="tag featured">Featured</span>
+          <span class="tag">Electronic</span>
+          <span class="tag">Live Sets</span>
+          <span class="tag">Limited</span>
+        </div>
+      </div>
+      <div class="event-action">
+        <button class="btn-gold" onclick="showPage('tickets')">Tickets</button>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-date">
+        <div class="day">21</div>
+        <div class="month">Jun 2026</div>
+      </div>
+      <div class="event-info">
+        <h3>SOLSTICE TAKEOVER</h3>
+        <p>East London &nbsp;·&nbsp; Doors 9:00 PM &nbsp;·&nbsp; 21+</p>
+        <div class="event-tags">
+          <span class="tag">Multi-Room</span>
+          <span class="tag">Outdoor Stage</span>
+        </div>
+      </div>
+      <div class="event-action">
+        <button class="btn-silver" onclick="showPage('tickets')">Tickets</button>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-date">
+        <div class="day">09</div>
+        <div class="month">Aug 2026</div>
+      </div>
+      <div class="event-info">
+        <h3>NGHT SHFT OPEN AIR</h3>
+        <p>South Bank, London &nbsp;·&nbsp; Doors 8:00 PM &nbsp;·&nbsp; All Ages</p>
+        <div class="event-tags">
+          <span class="tag">Outdoor</span>
+          <span class="tag">Food & Drink</span>
+          <span class="tag">Art Installations</span>
+        </div>
+      </div>
+      <div class="event-action">
+        <button class="btn-silver" onclick="showPage('tickets')">Tickets</button>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-date">
+        <div class="day">31</div>
+        <div class="month">Oct 2026</div>
+      </div>
+      <div class="event-info">
+        <h3>DARK MATTER — HALLOWEEN</h3>
+        <p>Venue TBA &nbsp;·&nbsp; Doors 10:00 PM &nbsp;·&nbsp; 21+</p>
+        <div class="event-tags">
+          <span class="tag sold-out">Sold Out</span>
+          <span class="tag">Costume Required</span>
+        </div>
+      </div>
+      <div class="event-action">
+        <button class="btn-silver" style="opacity:0.4; cursor:not-allowed;">Sold Out</button>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ════════════ TICKETS ════════════ -->
+<div id="tickets" class="page">
+  <section>
+    <p class="section-label">// Secure Your Place</p>
+    <h2 class="section-title">TICKETS</h2>
+    <div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-dot"></div></div>
+
+    <p style="font-size:0.78rem; color:var(--mid); margin-bottom:3rem; letter-spacing:0.05em;">
+      Select your tier for <strong style="color:var(--white)">NGHT SHFT VOL. 12</strong> — Saturday, 17 May 2026
+    </p>
+
+    <div class="tickets-grid">
+      <div class="ticket-card">
+        <div class="ticket-tier">General Admission</div>
+        <div class="ticket-price"><sup>£</sup>25</div>
+        <div class="ticket-event-name">NGHT SHFT VOL. 12</div>
+        <ul class="ticket-perks">
+          <li>Entry from doors open</li>
+          <li>Access to main floor</li>
+          <li>Bar access</li>
+        </ul>
+        <button class="btn-silver" style="width:100%" onclick="openTicketForm('General Admission','£25')">Select</button>
+      </div>
+
+      <div class="ticket-card featured">
+        <div class="ticket-tier">VIP Experience</div>
+        <div class="ticket-price"><sup>£</sup>65</div>
+        <div class="ticket-event-name">NGHT SHFT VOL. 12</div>
+        <ul class="ticket-perks">
+          <li>Early entry — 1 hour before doors</li>
+          <li>Exclusive VIP lounge access</li>
+          <li>2 complimentary drinks</li>
+          <li>Meet & greet opportunity</li>
+        </ul>
+        <button class="btn-gold" style="width:100%" onclick="openTicketForm('VIP Experience','£65')">Select</button>
+      </div>
+
+      <div class="ticket-card">
+        <div class="ticket-tier">Table Package</div>
+        <div class="ticket-price"><sup>£</sup>200</div>
+        <div class="ticket-event-name">NGHT SHFT VOL. 12</div>
+        <ul class="ticket-perks">
+          <li>Reserved table for up to 4</li>
+          <li>Bottle service included</li>
+          <li>Dedicated server</li>
+          <li>Priority entry</li>
+          <li>NGHT SHFT merch bundle</li>
+        </ul>
+        <button class="btn-silver" style="width:100%" onclick="openTicketForm('Table Package','£200')">Select</button>
+      </div>
+    </div>
+
+    <div class="form-wrap" id="ticketForm" style="display:none;">
+      <h3 id="ticketFormTitle">Reserve Your Ticket</h3>
+      <p id="ticketFormSub">Complete the form below and we'll confirm your booking.</p>
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="First name"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Phone (Optional)</label><input type="tel" placeholder="+44 (0)"></div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Quantity</label>
+          <select><option>1 ticket</option><option>2 tickets</option><option>3 tickets</option><option>4 tickets</option></select>
+        </div>
+        <div class="form-group">
+          <label>Ticket Tier</label>
+          <select id="ticketTierSelect">
+            <option>General Admission — £25</option>
+            <option>VIP Experience — £65</option>
+            <option>Table Package — £200</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Special Requests / Accessibility</label><textarea rows="3" placeholder="Any notes for us?"></textarea></div>
+      <button class="btn-gold" style="width:100%; font-size:0.8rem; padding:1rem;" onclick="submitTicket()">Reserve My Spot →</button>
+      <div class="success-msg" id="ticketSuccess">✦ &nbsp;Ticket request received. A confirmation will be sent to your email shortly.</div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ════════════ MERCH ════════════ -->
+<div id="merch" class="page">
+  <section>
+    <p class="section-label">// Official Merchandise</p>
+    <h2 class="section-title">MERCH</h2>
+    <div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-dot"></div></div>
+    <p style="font-size:0.78rem; color:var(--mid); margin-bottom:3rem; letter-spacing:0.05em;">
+      Official NGHT SHFT LNDN apparel and accessories. Limited production runs — enquire to secure yours.
+    </p>
+
+    <div class="merch-grid">
+      <div class="merch-card" onclick="openMerchModal('Core Tee','£38','Heavy cotton tee, screen-printed NGHT SHFT front logo on washed black. A wardrobe essential.','👕')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">👕</span>NGHT SHFT</div>
+          <div class="merch-badge">New</div>
+        </div>
+        <div class="merch-info">
+          <h3>Core Tee</h3><p class="merch-desc">Washed black · Screen print · Heavy cotton</p>
+          <div class="merch-price">£38</div>
+        </div>
+      </div>
+
+      <div class="merch-card" onclick="openMerchModal('Vol. 12 Event Tee','£42','Limited edition event shirt for NGHT SHFT Vol. 12. Date and lineup on back. Won\'t be reprinted.','🎽')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">🎽</span>VOL. 12</div>
+          <div class="merch-badge">Limited</div>
+        </div>
+        <div class="merch-info">
+          <h3>Vol. 12 Event Tee</h3><p class="merch-desc">Limited edition · Date & lineup on back</p>
+          <div class="merch-price">£42</div>
+        </div>
+      </div>
+
+      <div class="merch-card" onclick="openMerchModal('Snapback Hat','£35','Structured snapback with gold-embroidered NGHT SHFT monogram. One size fits most.','🧢')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">🧢</span>SNAPBACK</div>
+        </div>
+        <div class="merch-info">
+          <h3>Snapback Hat</h3><p class="merch-desc">Gold embroidery · One size</p>
+          <div class="merch-price">£35</div>
+        </div>
+      </div>
+
+      <div class="merch-card" onclick="openMerchModal('Dad Hat','£30','Unstructured low-profile cap. Silver-embroidered NGHT SHFT on front panel.','🎩')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">🎩</span>DAD HAT</div>
+        </div>
+        <div class="merch-info">
+          <h3>Dad Hat</h3><p class="merch-desc">Unstructured · Silver embroidery</p>
+          <div class="merch-price">£30</div>
+        </div>
+      </div>
+
+      <div class="merch-card" onclick="openMerchModal('Crewneck Sweatshirt','£68','Heavyweight fleece crew. Gold-embroidered chest logo. Pre-shrunk and built to last.','🧥')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">🧥</span>CREW</div>
+          <div class="merch-badge">Best Seller</div>
+        </div>
+        <div class="merch-info">
+          <h3>Crewneck</h3><p class="merch-desc">Heavyweight fleece · Gold embroidery</p>
+          <div class="merch-price">£68</div>
+        </div>
+      </div>
+
+      <div class="merch-card" onclick="openMerchModal('Sticker Pack','£10','5-pack premium vinyl stickers featuring NGHT SHFT artwork. Waterproof and weather resistant.','🏷️')">
+        <div class="merch-img">
+          <div class="merch-img-inner"><span class="merch-img-icon">🏷️</span>STICKERS</div>
+        </div>
+        <div class="merch-info">
+          <h3>Sticker Pack</h3><p class="merch-desc">5-pack vinyl · Waterproof</p>
+          <div class="merch-price">£10</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ════════════ GALLERY ════════════ -->
+<div id="gallery" class="page">
+  <section style="max-width:1300px;">
+    <p class="section-label">// The Archive</p>
+    <h2 class="section-title">GALLERY</h2>
+    <div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-dot"></div></div>
+
+    <!-- Upload zone -->
+    <div id="uploadZone" style="border:1px dashed var(--gold-dk);padding:2.5rem;text-align:center;margin-bottom:1.5rem;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--surface);"
+      onclick="document.getElementById('fileInput').click()"
+      ondragover="event.preventDefault();this.style.borderColor='var(--gold)';this.style.background='rgba(201,168,76,0.04)'"
+      ondragleave="this.style.borderColor='var(--gold-dk)';this.style.background='var(--surface)'"
+      ondrop="handleDrop(event)">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;opacity:0.45;">📷</div>
+      <p style="font-family:'Cinzel',serif;font-size:1rem;letter-spacing:0.1em;margin-bottom:0.4rem;background:var(--gold-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Upload Your Photos</p>
+      <p style="font-size:0.68rem;color:var(--mid);letter-spacing:0.1em;">Drag &amp; drop images here, or click to browse &nbsp;·&nbsp; JPG, PNG, WEBP &nbsp;·&nbsp; Multiple files supported</p>
+      <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+    </div>
+
+    <!-- Filter tabs -->
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <button class="filter-btn active" onclick="filterGallery('all',this)">All</button>
+      <button class="filter-btn" onclick="filterGallery('Vol. 12',this)">Vol. 12</button>
+      <button class="filter-btn" onclick="filterGallery('Vol. 11',this)">Vol. 11</button>
+      <button class="filter-btn" onclick="filterGallery('Vol. 10',this)">Vol. 10</button>
+      <button class="filter-btn" onclick="filterGallery('Open Air',this)">Open Air</button>
+      <button class="filter-btn" onclick="filterGallery('uploaded',this)">My Uploads</button>
+    </div>
+
+    <!-- Gallery grid -->
+    <div id="galleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:3px;">
+      <div class="g-card" data-tag="Vol. 11" style="aspect-ratio:1;background:linear-gradient(160deg,#0e0a00,#1c1200);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🎧</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Vol. 11 — Main Stage</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 11</div>
+      </div>
+      <div class="g-card" data-tag="Vol. 11" style="aspect-ratio:1;background:linear-gradient(160deg,#080810,#0d0d20);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🎤</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Vol. 11 — Live Set</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 11</div>
+      </div>
+      <div class="g-card" data-tag="Open Air" style="aspect-ratio:1;background:linear-gradient(160deg,#080e00,#111c00);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🌙</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Open Air 2025</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Open Air</div>
+      </div>
+      <div class="g-card" data-tag="Vol. 10" style="aspect-ratio:1;background:linear-gradient(160deg,#100000,#200000);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🔊</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Vol. 10 — Crowd</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 10</div>
+      </div>
+      <div class="g-card" data-tag="Vol. 11" style="aspect-ratio:1;background:linear-gradient(160deg,#100e00,#201a00);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">💡</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Light Show</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 11</div>
+      </div>
+      <div class="g-card" data-tag="Vol. 10" style="aspect-ratio:1;background:linear-gradient(160deg,#0c0010,#180020);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🎶</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Vol. 10 — DJ Booth</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 10</div>
+      </div>
+      <div class="g-card" data-tag="Open Air" style="aspect-ratio:1;background:linear-gradient(160deg,#001000,#002000);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🎉</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">Open Air — Crowd</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Open Air</div>
+      </div>
+      <div class="g-card" data-tag="Vol. 10" style="aspect-ratio:1;background:linear-gradient(160deg,#000c12,#001824);position:relative;overflow:hidden;cursor:pointer;" onclick="openLightbox(this)">
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;"><span style="font-size:2.5rem;opacity:0.25;">🏚️</span><span style="font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);">The Venue</span></div>
+        <div class="g-overlay">VIEW</div><div class="g-tag-badge">Vol. 10</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.65rem;color:var(--mid);margin-top:1.5rem;text-align:center;letter-spacing:0.08em;">
+      Uploads are stored in your browser session only. To permanently add photos to the live site, email <strong style="color:var(--gold)">photos@nghtshft.com</strong>
+    </p>
+  </section>
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;flex-direction:column;" onclick="closeLightbox(event)">
+  <button onclick="document.getElementById('lightbox').style.display='none'" style="position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:var(--silver);font-size:2rem;cursor:pointer;z-index:1;">✕</button>
+  <button id="lbPrev" onclick="lbNav(-1);event.stopPropagation()" style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--border);color:var(--silver);font-size:1.5rem;width:3rem;height:3rem;cursor:pointer;">‹</button>
+  <div id="lbContent" style="max-width:90vw;max-height:82vh;display:flex;align-items:center;justify-content:center;">
+    <img id="lbImg" src="" alt="" style="max-width:90vw;max-height:82vh;display:none;object-fit:contain;">
+    <div id="lbPlaceholder" style="width:640px;max-width:90vw;height:460px;max-height:82vh;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--border);">
+      <div id="lbIcon" style="font-size:4rem;margin-bottom:1rem;opacity:0.3;"></div>
+      <div id="lbCaption" style="font-family:'Cinzel',serif;font-size:1rem;letter-spacing:0.15em;color:var(--silver);"></div>
+    </div>
+  </div>
+  <button id="lbNext" onclick="lbNav(1);event.stopPropagation()" style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--border);color:var(--silver);font-size:1.5rem;width:3rem;height:3rem;cursor:pointer;">›</button>
+  <div id="lbCounter" style="position:absolute;bottom:2rem;font-size:0.65rem;letter-spacing:0.3em;color:var(--mid);"></div>
+</div>
+
+<!-- ════════════ CONTACT ════════════ -->
+<div id="contact" class="page">
+  <section>
+    <p class="section-label">// Get in Touch</p>
+    <h2 class="section-title">CONTACT</h2>
+    <div class="gold-divider"><div class="gold-divider-line"></div><div class="gold-divider-dot"></div></div>
+
+    <div class="contact-layout">
+      <div>
+        <div class="contact-block">
+          <h3>General Enquiries</h3>
+          <p><a href="/cdn-cgi/l/email-protection#325b5c545d725c555a46415a54461c515d5f"><span class="__cf_email__" data-cfemail="ddb4b3bbb29db3bab5a9aeb5bba9f3beb2b0">[email&#160;protected]</span></a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Bookings & Talent</h3>
+          <p><a href="/cdn-cgi/l/email-protection#ceaca1a1a5a7a0a98ea0a9a6babda6a8bae0ada1a3"><span class="__cf_email__" data-cfemail="b7d5d8d8dcded9d0f7d9d0dfc3c4dfd1c399d4d8da">[email&#160;protected]</span></a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Press & Media</h3>
+          <p><a href="/cdn-cgi/l/email-protection#0e7e7c6b7d7d4e6069667a7d66687a206d6163"><span class="__cf_email__" data-cfemail="cfbfbdaabcbc8fa1a8a7bbbca7a9bbe1aca0a2">[email&#160;protected]</span></a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Merch & Orders</h3>
+          <p><a href="/cdn-cgi/l/email-protection#533e3621303b133d343b27203b35277d303c3e"><span class="__cf_email__" data-cfemail="7f121a0d1c173f1118170b0c17190b511c1012">[email&#160;protected]</span></a></p>
+        </div>
+        <div class="contact-block">
+          <h3>Follow NGHT SHFT</h3>
+          <div class="social-links">
+            <a class="social-btn" href="#">Instagram</a>
+            <a class="social-btn" href="#">TikTok</a>
+            <a class="social-btn" href="#">Spotify</a>
+            <a class="social-btn" href="#">SoundCloud</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap" style="margin:0; max-width:none;">
+        <h3>Send a Message</h3>
+        <p>We read every message and respond within 48 hours.</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="First name"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+        </div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select>
+            <option>General Enquiry</option>
+            <option>Booking / Talent</option>
+            <option>Press / Media</option>
+            <option>Merch Enquiry</option>
+            <option>Ticket Support</option>
+            <option>Sponsorship</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea rows="5" placeholder="What would you like to say?"></textarea></div>
+        <button class="btn-gold" style="width:100%; padding:1rem; font-size:0.75rem;" onclick="submitContact()">Send Message →</button>
+        <div class="success-msg" id="contactSuccess">✦ &nbsp;Message received. We'll be in touch within 48 hours.</div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-logo">NGHT SHFT LNDN</div>
+    <div class="footer-copy">© 2026 NGHT SHFT LNDN. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- MERCH MODAL -->
+<div class="modal-overlay" id="merchModal" onclick="closeMerchModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('merchModal').classList.remove('open')">✕</button>
+    <p class="section-label" style="margin-bottom:0.5rem">// Merch Enquiry</p>
+    <h3 id="modalItemName"></h3>
+    <div class="modal-price" id="modalItemPrice"></div>
+    <p class="modal-desc" id="modalItemDesc"></p>
+    <div class="form-group"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Size</label>
+        <select><option>XS</option><option>S</option><option selected>M</option><option>L</option><option>XL</option><option>2XL</option><option>N/A</option></select>
+      </div>
+      <div class="form-group">
+        <label>Quantity</label>
+        <select><option>1</option><option>2</option><option>3</option><option>4+</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label>Notes</label><textarea rows="2" placeholder="Any special requests?"></textarea></div>
+    <button class="btn-gold" style="width:100%; padding:0.9rem; font-size:0.72rem;" onclick="submitMerch()">Submit Enquiry →</button>
+    <div class="success-msg" id="merchSuccess">✦ &nbsp;Enquiry sent. We'll follow up with availability and payment details.</div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ── GALLERY ──
+  let lbCards = [];
+  let lbIndex = 0;
+
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('uploadZone').style.borderColor = 'var(--gold-dk)';
+    document.getElementById('uploadZone').style.background = 'var(--surface)';
+    handleFiles(e.dataTransfer.files);
+  }
+
+  function handleFiles(files) {
+    Array.from(files).forEach(file => {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => addUploadedCard(e.target.result, file.name);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function addUploadedCard(src, name) {
+    const grid = document.getElementById('galleryGrid');
+    const card = document.createElement('div');
+    card.className = 'g-card uploaded-card';
+    card.dataset.tag = 'uploaded';
+    card.dataset.imgSrc = src;
+    card.style.cssText = 'aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;';
+    card.innerHTML = `
+      <img src="${src}" alt="${name}" style="width:100%;height:100%;object-fit:cover;">
+      <div class="g-overlay">VIEW</div>
+      <div class="g-tag-badge">My Upload</div>
+      <button onclick="event.stopPropagation();this.closest('.g-card').remove()" style="position:absolute;top:0.4rem;right:0.4rem;background:rgba(0,0,0,0.7);border:none;color:var(--silver);width:1.5rem;height:1.5rem;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    `;
+    card.onclick = function() { openLightbox(this); };
+    grid.prepend(card);
+    applyCurrentFilter();
+  }
+
+  function filterGallery(tag, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.g-card').forEach(card => {
+      if (tag === 'all' || card.dataset.tag === tag) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function applyCurrentFilter() {
+    const activeBtn = document.querySelector('.filter-btn.active');
+    if (activeBtn) {
+      const tag = activeBtn.textContent.trim();
+      if (tag === 'All') filterGallery('all', activeBtn);
+    }
+  }
+
+  function openLightbox(card) {
+    const visible = Array.from(document.querySelectorAll('.g-card:not(.hidden)'));
+    lbCards = visible;
+    lbIndex = visible.indexOf(card);
+    renderLightbox();
+    const lb = document.getElementById('lightbox');
+    lb.style.display = 'flex';
+  }
+
+  function renderLightbox() {
+    const card = lbCards[lbIndex];
+    const img = document.getElementById('lbImg');
+    const placeholder = document.getElementById('lbPlaceholder');
+    const icon = document.getElementById('lbIcon');
+    const caption = document.getElementById('lbCaption');
+
+    const src = card.dataset.imgSrc || (card.querySelector('img') ? card.querySelector('img').src : null);
+    const emojiEl = card.querySelector('span[style*="font-size:2.5rem"]');
+    const captionEl = card.querySelector('span[style*="letter-spacing"]');
+
+    if (src && card.classList.contains('uploaded-card')) {
+      img.src = src; img.style.display = 'block';
+      placeholder.style.display = 'none';
+    } else {
+      img.style.display = 'none'; placeholder.style.display = 'flex';
+      icon.textContent = emojiEl ? emojiEl.textContent : '📷';
+      caption.textContent = captionEl ? captionEl.textContent : '';
+    }
+    document.getElementById('lbCounter').textContent = `${lbIndex + 1} / ${lbCards.length}`;
+  }
+
+  function lbNav(dir) {
+    lbIndex = (lbIndex + dir + lbCards.length) % lbCards.length;
+    renderLightbox();
+  }
+
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox')) {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    const lb = document.getElementById('lightbox');
+    if (lb.style.display !== 'flex') return;
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'Escape') lb.style.display = 'none';
+  });
+    const form = document.getElementById('ticketForm');
+    form.style.display = 'block';
+    document.getElementById('ticketFormTitle').textContent = tier + ' — ' + price;
+    document.getElementById('ticketFormSub').textContent = 'NGHT SHFT Vol. 12 · Saturday, 17 May 2026. Complete the form and we\'ll confirm your booking.';
+    document.getElementById('ticketSuccess').style.display = 'none';
+    setTimeout(() => form.scrollIntoView({ behavior: 'smooth', block: 'center' 
