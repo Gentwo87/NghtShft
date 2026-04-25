@@ -1244,3 +1244,117 @@
     document.getElementById('ticketFormSub').textContent = 'NGHT SHFT Vol. 12 · Saturday, 17 May 2026. Complete the form and we\'ll confirm your booking.';
     document.getElementById('ticketSuccess').style.display = 'none';
     setTimeout(() => form.scrollIntoView({ behavior: 'smooth', block: 'center' 
+
+    const eventDate = new Date("May 17, 2026 22:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = eventDate - now;
+
+  if (distance < 0) {
+    document.getElementById("days").textContent = "00";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+    return;
+  }
+
+  document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("hours").textContent = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  document.getElementById("minutes").textContent = Math.floor((distance / (1000 * 60)) % 60);
+  document.getElementById("seconds").textContent = Math.floor((distance / 1000) % 60);
+}
+const eventDate = new Date("May 17, 2026 22:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = eventDate - now;
+
+  if (distance < 0) {
+    document.getElementById("days").textContent = "00";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+    return;
+  }
+
+  document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("hours").textContent = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  document.getElementById("minutes").textContent = Math.floor((distance / (1000 * 60)) % 60);
+  document.getElementById("seconds").textContent = Math.floor((distance / 1000) % 60);
+}
+
+  const eventDate = new Date("May 17, 2026 22:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = eventDate - now;
+
+  if (distance < 0) {
+    document.getElementById("days").textContent = "00";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+    return;
+  }
+
+  document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("hours").textContent = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  document.getElementById("minutes").textContent = Math.floor((distance / (1000 * 60)) % 60);
+  document.getElementById("seconds").textContent = Math.floor((distance / 1000) % 60);
+}
+// COUNTDOWN
+const eventDate = new Date("May 17, 2026 22:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = eventDate - now;
+
+  if (distance < 0) return;
+
+  document.getElementById("days").textContent =
+    Math.floor(distance / (1000 * 60 * 60 * 24));
+
+  document.getElementById("hours").textContent =
+    Math.floor((distance / (1000 * 60 * 60)) % 24);
+
+  document.getElementById("minutes").textContent =
+    Math.floor((distance / (1000 * 60)) % 60);
+
+  document.getElementById("seconds").textContent =
+    Math.floor((distance / 1000) % 60);
+}
+
+  const eventDate = new Date("July 11, 2026 21:00:00").getTime();
+
+function updateCountdown() {
+  const d = eventDate - new Date().getTime();
+  if (d < 0) return;
+
+  days.textContent = Math.floor(d / 86400000);
+  hours.textContent = Math.floor((d % 86400000) / 3600000);
+  minutes.textContent = Math.floor((d % 3600000) / 60000);
+  seconds.textContent = Math.floor((d % 60000) / 1000);
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
