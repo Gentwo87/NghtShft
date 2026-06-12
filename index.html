@@ -1,502 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NGHT SHFT LNDN</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NGHT SHFT LNDN | The General's 39th</title>
 
-  <style>
-    /* =====================================================
-       NGHT SHFT LNDN — SINGLE FILE WEBSITE
-       Edit most things in the labelled sections below.
-       Keep nslogo.png uploaded in the same GitHub folder.
-    ===================================================== */
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-    /* ========== BRAND SETTINGS ========== */
-    :root {
-      --black: #080808;
-      --deep: #0d0d0d;
-      --surface: rgba(15,15,15,0.75);
-      --border: rgba(201,168,76,0.28);
-      --gold: #c9a84c;
-      --gold-light: #f0d36f;
-      --gold-dark: #8a6a20;
-      --silver: #c5cbd4;
-      --muted: #7a8490;
-      --white: #f4efe5;
-      --gold-grad: linear-gradient(135deg,#8a6a20 0%,#c9a84c 38%,#f0d36f 58%,#c9a84c 78%,#8a6a20 100%);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: .35;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
-    }
-
-    /* ========== NAVIGATION ========== */
-    nav {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 1000;
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 3rem;
-      background: rgba(8,8,8,.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav-logo { cursor: pointer; text-decoration: none; line-height: 1; }
-    .nav-logo-main {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: .25em;
-      background: var(--gold-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .nav-logo-sub {
-      display: block;
-      margin-top: 4px;
-      color: var(--silver);
-      font-size: .48rem;
-      font-weight: 700;
-      letter-spacing: .58em;
-      text-transform: uppercase;
-    }
-
-    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-    .nav-links button {
-      background: none;
-      border: none;
-      color: var(--silver);
-      cursor: pointer;
-      font-size: .65rem;
-      font-weight: 800;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-    }
-    .nav-links button:hover { color: var(--gold-light); }
-    .nav-ticket {
-      padding: .65rem 1.3rem !important;
-      border: 1px solid var(--gold) !important;
-      color: var(--gold-light) !important;
-    }
-
-    /* ========== PAGE SYSTEM ========== */
-    .page { display: none; min-height: 100vh; }
-    .page.active { display: block; animation: fadeUp .35s ease both; }
-
-    /* ========== HOME HERO ========== */
-    #home { position: relative; min-height: 100vh; overflow: hidden; }
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      padding: 105px 2rem 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at center, rgba(201,168,76,.11), transparent 38%),
-        radial-gradient(circle at 20% 25%, rgba(255,255,255,.04), transparent 25%),
-        radial-gradient(circle at 80% 75%, rgba(201,168,76,.05), transparent 28%),
-        var(--black);
-    }
-
-    .hero-circle {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      width: min(68vw, 620px);
-      height: min(68vw, 620px);
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      border: 1px solid rgba(201,168,76,.12);
-      pointer-events: none;
-    }
-    .hero-circle::before {
-      content: "";
-      position: absolute;
-      inset: 22px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* Countdown sits across the top, left-to-right */
-    .countdown-top {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(95px, 1fr));
-      gap: .8rem;
-      width: min(100%, 780px);
-      margin: 0 auto 2rem;
-    }
-    .countdown-item {
-      border: 1px solid var(--border);
-      background: rgba(8,8,8,.38);
-      padding: .75rem .8rem;
-      box-shadow: 0 0 24px rgba(201,168,76,.08);
-      backdrop-filter: blur(8px);
-    }
-    .countdown-item span {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.35rem, 3vw, 2.1rem);
-      line-height: 1;
-      background: var(--gold-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .countdown-item small {
-      display: block;
-      margin-top: .35rem;
-      color: var(--silver);
-      font-size: .48rem;
-      font-weight: 800;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-    }
-
-    .hero-eyebrow {
-      margin-bottom: 1.4rem;
-      color: var(--silver);
-      font-size: .62rem;
-      font-weight: 800;
-      letter-spacing: .42em;
-      text-transform: uppercase;
-    }
-
-    /* Fixed logo stage: make logo bigger by changing .logo-stage only */
-    .logo-stage {
-      width: min(46vw, 390px);
-      height: min(46vw, 390px);
-      min-width: 400px;
-      min-height: 400px;
-      margin: -1rem auto .3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-logo-img {
-      width: 180%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 0 55px rgba(201,168,76,.42));
-    }
-
-    .hero-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin: .2rem auto 1rem;
-    }
-    .hero-divider-line { width: 80px; height: 1px; background: var(--gold-grad); opacity: .6; }
-    .hero-divider-diamond { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
-
-    .hero-tagline {
-      max-width: 650px;
-      margin: 0 auto;
-      font-family: 'Cormorant Garamond', serif;
-      color: var(--silver);
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      font-style: italic;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1.25rem;
-      margin-top: 2rem;
-    }
-    .btn {
-      min-width: 210px;
-      padding: 1rem 2rem;
-      cursor: pointer;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: .3em;
-      font-size: .7rem;
-      font-weight: 900;
-      transition: transform .2s, opacity .2s;
-    }
-    .btn:hover { transform: translateY(-2px); opacity: .9; }
-    .btn-gold { background: var(--gold-grad); border: none; color: var(--black); }
-    .btn-outline { background: transparent; border: 1px solid var(--silver); color: var(--silver); }
-
-    .ticker-bar {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 3;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: .55rem 0;
-      background: var(--gold-grad);
-      color: var(--black);
-    }
-    .ticker-inner {
-      display: inline-block;
-      animation: ticker 35s linear infinite;
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-    }
-
-    /* ========== GENERAL SECTIONS ========== */
-    section { max-width: 1150px; margin: 0 auto; padding: 6rem 2rem; }
-    .section-label { color: var(--gold); font-size: .62rem; font-weight: 800; letter-spacing: .45em; text-transform: uppercase; margin-bottom: .7rem; }
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 6vw, 4.3rem);
-      line-height: 1;
-      letter-spacing: .08em;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg,#8b94a3,#f4efe5,#8b94a3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .lead { max-width: 760px; color: var(--silver); font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.8; }
-    .lead strong { color: var(--gold-light); }
-
-    .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 2rem; }
-    .pill { padding: .55rem 1rem; border: 1px solid var(--border); color: var(--silver); font-size: .62rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
-
-    /* ========== EVENTS ========== */
-    .event-card {
-      display: grid;
-      grid-template-columns: 92px 1fr auto;
-      gap: 1.5rem;
-      align-items: center;
-      padding: 1.6rem;
-      margin-bottom: 1px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.035);
-    }
-    .event-day { font-family: 'Cinzel', serif; font-size: 2.5rem; background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .event-month { color: var(--muted); font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; }
-    .event-info h3 { font-family: 'Cinzel', serif; letter-spacing: .08em; margin-bottom: .4rem; }
-    .event-info p { color: var(--muted); font-size: .78rem; }
-
-    /* ========== TICKETS / MERCH ========== */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.08); }
-    .card { background: var(--deep); padding: 2rem; }
-    .card h3 { font-family: 'Cinzel', serif; color: var(--white); letter-spacing: .08em; margin-bottom: .7rem; }
-    .price { font-family: 'Cinzel', serif; font-size: 2.6rem; background: var(--gold-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: .5rem 0 1rem; }
-    .card p, .card li { color: var(--silver); font-size: .8rem; line-height: 1.7; }
-    .card ul { list-style: none; margin: 1rem 0 1.5rem; }
-    .card li::before { content: '◆'; color: var(--gold); margin-right: .6rem; font-size: .5rem; }
-
-    /* ========== GALLERY / CONTACT ========== */
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: .4rem; }
-    .gallery-tile { min-height: 160px; display: grid; place-items: center; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); color: var(--muted); font-size: 2rem; }
-    .contact-links { display: grid; gap: 1rem; max-width: 650px; }
-    .contact-links a { color: var(--silver); text-decoration: none; border: 1px solid rgba(255,255,255,.08); padding: 1rem; }
-
-    footer { border-top: 1px solid rgba(255,255,255,.08); padding: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; color: var(--muted); font-size: .65rem; letter-spacing: .12em; }
-    .footer-logo { font-family: 'Cinzel', serif; color: var(--gold-light); letter-spacing: .25em; }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
-
-    /* ========== MOBILE ========== */
-    @media (max-width: 800px) {
-      nav { padding: .9rem 1.2rem; }
-      .nav-links { display: none; }
-      .hero { padding-top: 95px; }
-      .countdown-top { grid-template-columns: repeat(4, 1fr); gap: .35rem; margin-bottom: 1.25rem; }
-      .countdown-item { padding: .55rem .25rem; }
-      .countdown-item span { font-size: 1.15rem; }
-      .countdown-item small { font-size: .38rem; letter-spacing: .1em; }
-      .hero-eyebrow { font-size: .48rem; letter-spacing: .23em; line-height: 2; }
-      .logo-stage { width: 270px; height: 270px; min-width: 0; min-height: 0; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .btn { width: min(100%, 310px); }
-      .event-card { grid-template-columns: 1fr; text-align: center; }
-    }
-  </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Montserrat,sans-serif;
+  background:#050505;
+  color:#fff;
+  overflow-x:hidden;
+}
+.hero{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(236,0,140,.25),transparent 25%),
+    radial-gradient(circle at 80% 25%,rgba(0,220,220,.22),transparent 28%),
+    radial-gradient(circle at 50% 80%,rgba(255,170,0,.18),transparent 30%),
+    #050505;
+  position:relative;
+  padding:30px 6%;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:50px;
+}
+.logo{
+  font-family:Anton,sans-serif;
+  font-size:34px;
+  letter-spacing:3px;
+}
+.logo span{color:#00d6d6}
+.ticket-btn{
+  background:#f3a400;
+  color:#000;
+  padding:14px 26px;
+  text-decoration:none;
+  font-weight:900;
+  text-transform:uppercase;
+  border-radius:4px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:50px;
+  align-items:center;
+}
+.kicker{
+  color:#00d6d6;
+  font-weight:900;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+h1{
+  font-family:Anton,sans-serif;
+  font-size:clamp(70px,11vw,160px);
+  line-height:.85;
+  text-transform:uppercase;
+}
+h1 span{
+  display:block;
+  color:#f3a400;
+  text-shadow:6px 6px #e6008d;
+}
+.subtitle{
+  font-family:Bebas Neue,sans-serif;
+  font-size:clamp(32px,5vw,70px);
+  color:#e6008d;
+  margin:20px 0;
+}
+.info{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  margin:28px 0;
+}
+.info div{
+  border:2px solid #00d6d6;
+  padding:14px 18px;
+  font-weight:900;
+  background:rgba(0,0,0,.45);
+}
+.countdown{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:30px 0;
+}
+.countdown div{
+  min-width:90px;
+  padding:14px;
+  background:#111;
+  border:2px solid #f3a400;
+  text-align:center;
+}
+.countdown span{
+  display:block;
+  font-family:Anton,sans-serif;
+  font-size:34px;
+  color:#f3a400;
+}
+.countdown small{
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.btn{
+  padding:16px 28px;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-weight:900;
+  border-radius:4px;
+}
+.btn.gold{background:#f3a400;color:#000}
+.btn.pink{background:#e6008d;color:#fff}
+.poster{
+  position:relative;
+}
+.poster img{
+  width:100%;
+  border:4px solid #f3a400;
+  box-shadow:0 0 50px rgba(230,0,141,.45);
+  transform:rotate(1deg);
+}
+.badge{
+  position:absolute;
+  top:-20px;
+  left:-20px;
+  background:#e6008d;
+  padding:18px;
+  font-family:Anton,sans-serif;
+  font-size:36px;
+  transform:rotate(-8deg);
+}
+.section{
+  padding:70px 6%;
+  background:#0b0b0b;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.card{
+  padding:28px;
+  background:#111;
+  border:1px solid #333;
+}
+.card h3{
+  color:#00d6d6;
+  font-family:Anton,sans-serif;
+  font-size:30px;
+  margin-bottom:10px;
+}
+footer{
+  padding:30px 6%;
+  text-align:center;
+  background:#050505;
+  color:#aaa;
+}
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr}
+  nav{gap:20px}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- ================= NAV ================= -->
+<main class="hero">
   <nav>
-    <a class="nav-logo" onclick="showPage('home')">
-      <span class="nav-logo-main">NGHT SHFT</span>
-      <span class="nav-logo-sub">London</span>
-    </a>
-    <ul class="nav-links">
-      <li><button onclick="showPage('home')">Home</button></li>
-      <li><button onclick="showPage('events')">Events</button></li>
-      <li><button onclick="showPage('tickets')">Tickets</button></li>
-      <li><button onclick="showPage('merch')">Merch</button></li>
-      <li><button onclick="showPage('gallery')">Gallery</button></li>
-      <li><button onclick="showPage('contact')">Contact</button></li>
-      <li><button class="nav-ticket" onclick="showPage('tickets')">Get Tickets</button></li>
-    </ul>
+    <div class="logo">NGHT SHFT <span>LNDN</span></div>
+    <a href="#tickets" class="ticket-btn">Get Tickets</a>
   </nav>
 
-  <!-- ================= HOME ================= -->
-  <main id="home" class="page active">
-    <div class="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-circle"></div>
+  <div class="grid">
+    <div>
+      <p class="kicker">R&B • Garage • Old School • Club Vibes</p>
+      <h1>The General’s <span>39th</span></h1>
+      <p class="subtitle">Birthday Celebration</p>
 
-      <div class="hero-content">
-        <!-- EDIT COUNTDOWN POSITION/TEXT HERE -->
-        <div class="countdown-top" aria-label="Countdown to next event">
-          <div class="countdown-item"><span id="days">00</span><small>Days</small></div>
-          <div class="countdown-item"><span id="hours">00</span><small>Hours</small></div>
-          <div class="countdown-item"><span id="minutes">00</span><small>Minutes</small></div>
-          <div class="countdown-item"><span id="seconds">00</span><small>Seconds</small></div>
-        </div>
-
-        <p class="hero-eyebrow">London &nbsp;◆&nbsp; R&amp;B &nbsp;◆&nbsp; Hip Hop &nbsp;◆&nbsp; Garage &nbsp;◆&nbsp; Bashment &nbsp;◆&nbsp; Old Skool</p>
-
-        <!-- EDIT LOGO FILE NAME HERE IF NEEDED -->
-        <div class="logo-stage">
-          <img src="nslogo.png" class="hero-logo-img" alt="NGHT SHFT LNDN logo">
-        </div>
-
-        <div class="hero-divider"><div class="hero-divider-line"></div><div class="hero-divider-diamond"></div><div class="hero-divider-line"></div></div>
-
-        <p class="hero-tagline">Clock in to the Nght Shft — the one Shft you won't want to end.</p>
-
-        <div class="hero-actions">
-          <button class="btn btn-gold" onclick="showPage('events')">View Events</button>
-          <button class="btn btn-outline" onclick="showPage('tickets')">Get Tickets</button>
-        </div>
+      <div class="info">
+        <div>Sat 11th July</div>
+        <div>9PM – 1AM</div>
+        <div>Alaska Bar, Waterloo</div>
+        <div>Entry £10</div>
       </div>
 
-      <div class="ticker-bar"><div class="ticker-inner">NEXT EVENT: NGHT SHFT VOL. 12 ◆ SAT 11 JULY ◆ VENUE TBA ◆ DOORS 9PM ◆ LIMITED AVAILABILITY ◆&nbsp;&nbsp;</div></div>
+      <div class="countdown">
+        <div><span id="days">00</span><small>Days</small></div>
+        <div><span id="hours">00</span><small>Hours</small></div>
+        <div><span id="minutes">00</span><small>Minutes</small></div>
+        <div><span id="seconds">00</span><small>Seconds</small></div>
+      </div>
+
+      <div class="actions">
+        <a href="#tickets" class="btn gold">Get Tickets</a>
+        <a href="#details" class="btn pink">Event Details</a>
+      </div>
     </div>
 
-    <section>
-      <p class="section-label">// About NGHT SHFT</p>
-      <h2 class="section-title">THE ONE<br>SHFT YOU WON'T<br>WANT TO END</h2>
-      <p class="lead"><strong>Clock in to the Nght Shft.</strong> London's night for R&amp;B, Hip Hop, Garage, Bashment and Old Skool classics — plus games and prizes all night long.</p>
-      <div class="pill-row">
-        <span class="pill">R&amp;B &amp; Hip Hop</span><span class="pill">Garage</span><span class="pill">Bashment</span><span class="pill">Old Skool</span><span class="pill">Games &amp; Prizes</span>
-      </div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+    <div class="poster">
+      <div class="badge">11 JULY</div>
+      <img src="poster.png" alt="The General's 39th Birthday Celebration flyer">
+    </div>
+  </div>
+</main>
 
-  <!-- ================= EVENTS ================= -->
-  <main id="events" class="page">
-    <section>
-      <p class="section-label">// Upcoming</p>
-      <h2 class="section-title">Events</h2>
-      <div class="event-card"><div><div class="event-day">11</div><div class="event-month">July 2026</div></div><div class="event-info"><h3>NGHT SHFT VOL. 12</h3><p>Venue TBA, London · Doors 9:00 PM · 18+</p></div><button class="btn btn-gold" onclick="showPage('tickets')">Tickets</button></div>
-      <div class="event-card"><div><div class="event-day">21</div><div class="event-month">Aug 2026</div></div><div class="event-info"><h3>Summer Takeover</h3><p>East London · Doors 9:00 PM · 18+</p></div><button class="btn btn-outline" onclick="showPage('tickets')">Tickets</button></div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+<section class="section" id="details">
+  <div class="cards">
+    <div class="card">
+      <h3>Music</h3>
+      <p>R&B classics, garage, old school, bashment and club anthems all night.</p>
+    </div>
+    <div class="card">
+      <h3> DJs</h3>
+      <p>The General, DJ Leon D and DJ CLK bringing the birthday energy.</p>
+    </div>
+    <div class="card">
+      <h3>Dress Code</h3>
+      <p>No hats. No hoodies. No tracksuits. Bring clean vibes and party energy.</p>
+    </div>
+    <div class="card">
+      <h3>Prizes</h3>
+      <p>Giveaways, competitions and surprises throughout the night.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- ================= TICKETS ================= -->
-  <main id="tickets" class="page">
-    <section>
-      <p class="section-label">// Secure Your Place</p>
-      <h2 class="section-title">Tickets</h2>
-      <div class="grid">
-        <div class="card"><h3>General Admission</h3><div class="price">£25</div><ul><li>Entry from doors open</li><li>Main floor access</li><li>Bar access</li></ul><a class="btn btn-outline" href="mailto:tickets@nghtshft.com">Enquire</a></div>
-        <div class="card"><h3>VIP Experience</h3><div class="price">£65</div><ul><li>Priority entry</li><li>VIP area access</li><li>2 complimentary drinks</li></ul><a class="btn btn-gold" href="mailto:tickets@nghtshft.com">Enquire</a></div>
-        <div class="card"><h3>Table Package</h3><div class="price">£200</div><ul><li>Reserved table</li><li>Bottle service</li><li>Priority entry</li></ul><a class="btn btn-outline" href="mailto:tickets@nghtshft.com">Enquire</a></div>
-      </div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+<section class="section" id="tickets">
+  <h2 style="font-family:Anton;font-size:54px;color:#f3a400;margin-bottom:20px;">Tickets</h2>
+  <p style="font-size:20px;margin-bottom:24px;">Entry is only <strong>£10</strong>. ID required for entry.</p>
+  <a href="#" class="btn gold">Buy / Join Guestlist</a>
+</section>
 
-  <!-- ================= MERCH ================= -->
-  <main id="merch" class="page">
-    <section>
-      <p class="section-label">// Official Merchandise</p>
-      <h2 class="section-title">Merch</h2>
-      <div class="grid">
-        <div class="card"><h3>Core Tee</h3><div class="price">£38</div><p>Washed black heavy cotton tee with NGHT SHFT branding.</p></div>
-        <div class="card"><h3>Snapback Hat</h3><div class="price">£35</div><p>Gold embroidered NGHT SHFT monogram.</p></div>
-        <div class="card"><h3>Crewneck</h3><div class="price">£68</div><p>Heavyweight fleece crew with embroidered chest logo.</p></div>
-      </div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+<footer>
+  NGHT SHFT LNDN © 2026
+</footer>
 
-  <!-- ================= GALLERY ================= -->
-  <main id="gallery" class="page">
-    <section>
-      <p class="section-label">// The Archive</p>
-      <h2 class="section-title">Gallery</h2>
-      <div class="gallery-grid"><div class="gallery-tile">🎧</div><div class="gallery-tile">🎤</div><div class="gallery-tile">🔊</div><div class="gallery-tile">💡</div></div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+<script>
+const eventDate = new Date("2026-07-11T21:00:00").getTime();
 
-  <!-- ================= CONTACT ================= -->
-  <main id="contact" class="page">
-    <section>
-      <p class="section-label">// Get in Touch</p>
-      <h2 class="section-title">Contact</h2>
-      <div class="contact-links">
-        <a href="mailto:info@nghtshft.com">General: info@nghtshft.com</a>
-        <a href="mailto:bookings@nghtshft.com">Bookings: bookings@nghtshft.com</a>
-        <a href="mailto:tickets@nghtshft.com">Tickets: tickets@nghtshft.com</a>
-      </div>
-    </section>
-    <site-footer></site-footer>
-  </main>
+function updateCountdown(){
+  const now = Date.now();
+  const distance = eventDate - now;
 
-  <script>
-    /* ========== PAGE NAVIGATION ========== */
-    function showPage(id) {
-      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  if(distance <= 0){
+    days.textContent = hours.textContent = minutes.textContent = seconds.textContent = "00";
+    return;
+  }
 
-    /* ========== COUNTDOWN TIMER ==========
-       EDIT EVENT DATE HERE ONLY
-       Format: "Month DD, YYYY HH:MM:SS"
-    */
-    const eventDate = new Date("July 11, 2026 21:00:00").getTime();
+  days.textContent = Math.floor(distance / 86400000);
+  hours.textContent = Math.floor((distance % 86400000) / 3600000);
+  minutes.textContent = Math.floor((distance % 3600000) / 60000);
+  seconds.textContent = Math.floor((distance % 60000) / 1000);
+}
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = eventDate - now;
+updateCountdown();
+setInterval(updateCountdown,1000);
+</script>
 
-      const days = document.getElementById('days');
-      cons
+</body>
+</html>
