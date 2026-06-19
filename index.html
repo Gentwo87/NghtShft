@@ -1,1 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGHT SHFT LNDN | I Love R&B</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#050505;
+  color:#fff;
+  font-family:Montserrat,sans-serif;
+  overflow-x:hidden;
+}
+.hero{
+  min-height:100vh;
+  padding:24px 6%;
+  background:
+    radial-gradient(circle at 20% 25%,rgba(230,0,140,.32),transparent 25%),
+    radial-gradient(circle at 80% 35%,rgba(0,220,220,.22),transparent 26%),
+    radial-gradient(circle at 50% 80%,rgba(255,166,0,.22),transparent 30%),
+    #050505;
+  position:relative;
+}
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+}
+.brand-logo{
+  width:130px;
+}
+.nav-btn{
+  background:#f6a800;
+  color:#000;
+  padding:12px 24px;
+  font-weight:900;
+  text-decoration:none;
+  text-transform:uppercase;
+  border-radius:4px;
+}
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:10px auto 34px;
+  flex-wrap:wrap;
+}
+.countdown div{
+  min-width:110px;
+  border:2px solid #f6a800;
+  background:rgba(0,0,0,.7);
+  padding:12px 18px;
+  text-align:center;
+  box-shadow:0 0 18px rgba(230,0,140,.35);
+}
+.countdown span{
+  display:block;
+  font-family:Anton,sans-serif;
+  font-size:32px;
+  color:#f6a800;
+}
+.countdown small{
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 0.9fr;
+  gap:44px;
+  align-items:center;
+}
+.kicker{
+  color:#00d7d7;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  margin-bottom:16px;
+}
+h1{
+  font-family:Anton,sans-serif;
+  font-size:clamp(76px,12vw,160px);
+  line-height:.85;
+  text-transform:uppercase;
+}
+.heart{
+  color:#e6008d;
+  text-shadow:5px 5px #00cfd1;
+}
+.rnb{
+  color:#fff;
+  text-shadow:5px 5px #e6008d;
+}
+.sub{
+  font-family:Bebas Neue,sans-serif;
+  font-size:clamp(36px,6vw,82px);
+  color:#f6a800;
+  margin:14px 0;
+}
+.info{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:24px 0;
+}
+.info div{
+  border:2px solid #00d7d7;
+  padding:12px 16px;
+  background:#111;
+  font-weight:900;
+}
+.actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-block;
+  padding:16px 28px;
+  text-transform:uppercase;
+  text-decoration:none;
+  font-weight:900;
+  border-radius:4px;
+}
+.gold{background:#f6a800;color:#000}
+.pink{background:#e6008d;color:#fff}
+.flyer img{
+  width:100%;
+  border:4px solid #f6a800;
+  box-shadow:0 0 50px rgba(0,215,215,.35);
+}
+.section{
+  padding:65px 6%;
+  background:#0b0b0b;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.card{
+  background:#111;
+  border:1px solid #333;
+  padding:28px;
+}
+.card h3{
+  font-family:Anton,sans-serif;
+  color:#00d7d7;
+  font-size:34px;
+  margin-bottom:10px;
+}
+footer{
+  text-align:center;
+  padding:30px;
+  color:#999;
+}
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr}
+  .brand-logo{width:100px}
+}
+</style>
+</head>
+
+<body>
+
+<main class="hero">
+  <nav>
+    <img src="nslogo.png" class="brand-logo" alt="NGHT SHFT LNDN logo">
+    <a href="#tickets" class="nav-btn">Get Tickets</a>
+  </nav>
+
+  <div class="countdown">
+    <div><span id="days">00</span><small>Days</small></div>
+    <div><span id="hours">00</span><small>Hours</small></div>
+    <div><span id="minutes">00</span><small>Minutes</small></div>
+    <div><span id="seconds">00</span><small>Seconds</small></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <p class="kicker">NGHT SHFT LNDN Presents</p>
+      <h1><span class="heart">I ♥</span><br><span class="rnb">R&B</span></h1>
+      <p class="sub">Birthday Celebration</p>
+
+      <div class="info">
+        <div>Sat 11th July</div>
+        <div>9PM – 1AM</div>
+        <div>Alaska Bar, Waterloo</div>
+        <div>Entry £10</div>
+      </div>
+
+      <div class="actions">
+        <a href="#tickets" class="btn gold">Get Tickets</a>
+        <a href="#details" class="btn pink">Event Details</a>
+      </div>
+    </div>
+
+    <div class="flyer">
+      <img src="flyer.png" alt="I Love R&B event flyer">
+    </div>
+  </div>
+</main>
+
+<section class="section" id="details">
+  <div class="cards">
+    <div class="card"><h3>Music</h3><p>R&B, garage, old school, bashment and club classics all night.</p></div>
+    <div class="card"><h3>DJs</h3><p>The General, DJ Leon D and DJ CLK bringing the energy.</p></div>
+    <div class="card"><h3>Vibes</h3><p>Prize giveaways, competitions, birthday energy and club vibes.</p></div>
+    <div class="card"><h3>Dress Code</h3><p>No hats. No hoodies. No tracksuits. ID required for entry.</p></div>
+  </div>
+</section>
+
+<section class="section" id="tickets">
+  <h2 style="font-family:Anton;font-size:54px;color:#f6a800;margin-bottom:18px;">Tickets</h2>
+  <p style="font-size:20px;margin-bottom:24px;">Entry is only <strong>£10</strong>.</p>
+  <a href="#" class="btn gold">Buy / Join Guestlist</a>
+</section>
+
+<footer>
+  NGHT SHFT LNDN © 2026
+</footer>
+
+<script>
+const eventDate = new Date("2026-07-11T21:00:00").getTime();
+
+function updateCountdown(){
+  const now = Date.now();
+  const distance = eventDate - now;
+
+  if(distance <= 0){
+    days.textContent = "00";
+    hours.textContent = "00";
+    minutes.textContent = "00";
+    seconds.textContent = "00";
+    return;
+  }
+
+  days.textContent = Math.floor(distance / 86400000);
+  hours.textContent = Math.floor((distance % 86400000) / 3600000);
+  minutes.textContent = Math.floor((distance % 3600000) / 60000);
+  seconds.textContent = Math.floor((distance % 60000) / 1000);
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+</script>
+
+</body>
+</html>
